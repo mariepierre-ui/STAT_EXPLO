@@ -1,6 +1,6 @@
 # Statistique exploratoire
 
-Travaux pratiques réalisés dans le cadre de mon M1 Mathématiques appliquées : manipulation de données et statistique descriptive avec R.
+Travaux pratiques réalisés dans le cadre de mon M2 Mathématiques appliquées : manipulation de données et statistique descriptive avec R.
 
 ## Contenu
 
