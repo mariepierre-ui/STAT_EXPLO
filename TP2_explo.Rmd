@@ -1,0 +1,104 @@
+FAYE Marie Pierre Gnilane Ndew
+12213642
+
+I) Représentations tabulaire et graphiques
+```{r}
+data(mtcars)
+df1 <- mtcars
+head(df1)
+ncol(df1)
+nrow(df1)
+```
+1) Créons un tableau de contingence 
+```{r}
+tab_cont <- table(df1$cyl, df1$am,dnn=c("cyl","am"))
+print(tab_cont)
+addmargins(tab_cont)
+```
+2) Créons un histogramme avec les fréquences absolues
+```{r}
+hist(df1$wt,breaks = seq(min(df1$wt),max(df1$wt), length.out = 6), main = "histogramme des fréquences absolues de wt", ylab = "fréquences", xlab="wt", freq = TRUE)
+
+```
+3) Diagramme en boîte du poids:
+```{r}
+boxplot(df1$wt, main="Diagramme en boîtes du poids(wt)", ylab = "wt")
+```
+
+II) Corrélation
+
+1-a) Calcul de la corrélation entre "a" et "w" en utilisant le coefficient de corrélation de Pearson :
+```{r}
+knitr::include_graphics("Q1_a.png")
+```
+1-b) Code 
+```{r}
+a = c(11,15,23,46,52,75)
+w = c(34,49,58,62,69,64)
+cor(a, w, method = "pearson")
+```
+1-c) Interprétation :
+Le coefficient de corrélation de Pearson vaut $r_{aw}$ ≈ 0,79. Il est positif et proche de 1, ce qui indique une relation linéaire forte et positive entre l’âge "a" et le poids "w" : quand l’âge augmente, le poids a tendance à augmenter aussi.
+
+2-a) Calcul de la corrélation entre "a" et "w" en utilisant le coefficient de corrélation de Spearman :
+```{r}
+knitr::include_graphics("Q2_a.png")
+```
+2-b) Code
+```{r}
+cor(a, w, method = "spearman")
+```
+2-c) Interprétation:
+Le coefficient de Spearman ρ ≈ 0,94 est très proche de 1. Les classements des âges et des poids sont donc presque identiques, ce qui traduit une relation monotone croissante très forte entre "a" et "w" : plus une personne est âgée, plus elle tend à être lourde.
+
+3) Dessin du nuage de points 
+```{r}
+plot(a, w, xlab = "a", ylab = "w")
+```
+
+III) Data frames
+
+```{r}
+data(state)
+df2 <- state.x77
+head(df2)
+ncol(df2)
+nrow(df2)
+```
+1) Vérification de la nature de l'ensemble des données 
+```{r}
+class(df2)
+df2<- as.data.frame(df2)
+class(df2)
+head(df2)
+```
+
+2) Création d'un nouvel attribut "states", attribution des noms de ligne et suppression des noms de ligne de l'ensemble des données
+```{r}
+df2$states <- rownames(df2)
+head(df2)
+rownames(df2) <- NULL
+head(df2)
+```
+3) Le nombre d'États qui ont un revenu (par habitant) > 4300$ et une population > 1000 (en milliers) d'habitants :
+```{r}
+length(df2$states[df2$Population>1000 & df2$Income>4300])
+```
+22 États ont un revenu par habitant supérieur à 4 300 $ et une population supérieure à 1 million d’habitants.
+
+4) Impression des 5 États qui affichent les revenus les plus élevés après avoir classé les Revenus par ordre décroissant 
+```{r}
+head(df2)
+df2_trie<-df2[order(df2$Income, decreasing = TRUE),]
+head(df2_trie$states, n = 5L)
+```
+Les 5 États avec les revenus les plus élevés sont : l'Alaska, le Connecticut, le Maryland, le New Jersey et le Nevada.
+
+5) Créons un nouvel attribut ordinal appelé "frost_cat" qui prend les valeurs "faible", "intermédiaire", "élevé" 
+```{r}
+df2$frost_cat<-cut(df2$Frost, breaks = c(-1,30,90,190), labels = c("faible","intermédiaire", "élevé"), ordered_result = TRUE)
+head(df2)
+print(df2$states[df2$frost_cat == "faible"])
+```
+Les États de la catégorie "faible" (30 jours de gel par an au plus) sont : l'Alabama, l'Arizona, la Californie, la Floride, le Hawaï et la Louisiane.
+
