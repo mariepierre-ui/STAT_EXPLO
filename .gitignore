@@ -1,6 +1,5 @@
-.png_checkpoints/
-.Rmd_checkpoints/
-.csv_checkpoints/
+.ipynb_checkpoints/
 .Rhistory
 .RData
 .Rproj.user/
+.DS_Store
